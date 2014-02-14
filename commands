@@ -1,0 +1,5 @@
+# watchify -c 'coffee -sc' ./src/main.coffee -o  ./build/zu.js
+
+# mocha ./test --compilers coffee:coffee-script --require chai --watch
+
+# codo src/*.coffee

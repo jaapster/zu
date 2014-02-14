@@ -1,0 +1,17 @@
+{
+	"private": true,
+	"author": "Jaap",
+	"name": "immutable",
+	"version": "0.0.1",
+	"engine": "node 0.10.21",
+	"repository": {
+		"url": ""
+	},
+	"dependencies": {},
+	"devDependencies": {
+		"coffee-script": "~1.6.3",
+		"chai": "*",
+		"mocha": "*",
+		"codo": "*"
+	}
+}
