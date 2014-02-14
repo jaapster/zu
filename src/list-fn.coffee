@@ -5,9 +5,7 @@ isNum = type.isNum
 
 # @param {*} head
 # @return {List}
-list = (head, rest...) ->
-	if arguments.length is 0 then EMPTY
-	else list.cons(head, list.apply(null, rest))
+list = (head, rest...) -> if arguments.length is 0 then EMPTY else list.cons(head, list.apply(null, rest))
 
 # @param {*} head
 # @param {List} tail
@@ -27,15 +25,12 @@ list.empty = (xs) -> xs is EMPTY
 # @param {List} xs
 # @param {*} x
 # @return {List}
-list.app = (xs, x) ->
-	if xs is EMPTY then list.cons(x, EMPTY)
-	else list.cons(xs.head(), list.app(xs.tail(), x))
+list.app = (xs, x) -> if xs is EMPTY then list.cons(x, EMPTY) else list.cons(xs.head(), list.app(xs.tail(), x))
 
 # @param {List} xs
 # @param {List} ys
 # @return {List}
-list.union = (xs, ys) ->
-	if xs is EMPTY then ys else list.cons(xs.head(), list.union(xs.tail(), ys))
+list.union = (xs, ys) -> if xs is EMPTY then ys else list.cons(xs.head(), list.union(xs.tail(), ys))
 
 # @param {List} xs
 # @param {Number} n
@@ -47,16 +42,12 @@ list.take = (xs, n) ->
 # @param {List} xs
 # @param {Number} n
 # @return {List}
-list.drop = (xs, n) ->
-	if xs is EMPTY or n is 0 then xs else if not isNum(n) then EMPTY
-	else list.drop(xs.tail(), n - 1)
+list.drop = (xs, n) -> if xs is EMPTY or n is 0 then xs else if not isNum(n) then EMPTY else list.drop(xs.tail(), n - 1)
 
 # @param {List} xs
 # @param {Number} n
 # @return {*}
-list.nth = (xs, n) ->
-	if xs is EMPTY then null
-	else if n is 0 then xs.head() else list.nth(xs.tail(), n - 1)
+list.nth = (xs, n) -> if xs is EMPTY then null else if n is 0 then xs.head() else list.nth(xs.tail(), n - 1)
 
 # @param {List} xs
 # @param {Function} p
@@ -69,8 +60,7 @@ list.filter = (xs, p) ->
 # @param {List} xs
 # @param {Function} m
 # @return {List}
-list.map = (xs, m) ->
-	if xs is EMPTY then xs else list.cons(m(xs.head()), list.map(xs.tail(), m))
+list.map = (xs, m) -> if xs is EMPTY then xs else list.cons(m(xs.head()), list.map(xs.tail(), m))
 
 # @param {List} xs
 # @return {List}
@@ -115,8 +105,7 @@ list.zip = (xs, ys, m) ->
 # @param {List} xs
 # @param {*} x
 # @return {Boolean}
-list.has = (xs, x) ->
-	if xs is EMPTY then no else xs.head() is x or list.has(xs.tail(), x)
+list.has = (xs, x) -> if xs is EMPTY then no else xs.head() is x or list.has(xs.tail(), x)
 
 # @param {List} xs
 # @param {*} x
@@ -127,8 +116,7 @@ list.without = (xs, x) -> list.filter(xs, (e) -> e isnt x)
 # @param {*} x
 # @param {*} y
 # @return {List}
-list.replace = (xs, x, y) ->
-	if not y then xs else list.map(xs, (e) -> if e is x then y else e)
+list.replace = (xs, x, y) -> if not y then xs else list.map(xs, (e) -> if e is x then y else e)
 
 # @param {List} xs
 # @param {Function} xs
@@ -152,8 +140,7 @@ list.some = (xs, p) -> list.len(list.filter(xs, p)) > 0
 # @param {List} xs
 # @param {Array} a
 # @return {Array}
-list.array = (xs, a = []) ->
-	if xs is EMPTY then a else [xs.head()].concat(list.array(xs.tail()))
+list.array = (xs, a = []) -> if xs is EMPTY then a else [xs.head()].concat(list.array(xs.tail()))
 
 # @param {List} xs
 # @return {String}

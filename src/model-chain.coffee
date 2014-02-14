@@ -3,8 +3,6 @@
 chain = require './chain.coffee'
 modellist = require './model-list-fn.coffee'
 
-# //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 class modelchain extends chain
 
 	constructor: (xs, C = modelchain) -> super(xs, C)

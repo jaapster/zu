@@ -2,9 +2,7 @@
 
 # @param {*} head
 # @return {List}
-dbllist = (vals...) ->
-	if not vals.length then EMPTY
-	else dbllist.cons(null, vals[0]).grow(vals[1...])
+dbllist = (vals...) -> if not vals.length then EMPTY else dbllist.cons(null, vals[0]).grow(vals[1...])
 
 # @param {Object} ref
 # @param {*} head
