@@ -213,7 +213,6 @@
   };
 
   list.len = function(xs) {
-    if (xs == null) xs = this.xs;
     if (xs === EMPTY) {
       return 0;
     } else {

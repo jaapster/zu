@@ -16,7 +16,7 @@ list.cons = (head, tail) ->
 
 # @param {List} xs
 # @return {Number}
-list.len = (xs = @xs) ->
+list.len = (xs) ->
 	if xs is EMPTY then 0 else 1 + list.len(xs.tail())
 
 # @param {List} xs
