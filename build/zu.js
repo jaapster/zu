@@ -182,20 +182,18 @@
 },{}],3:[function(require,module,exports){
 (function() {
   'use strict';
-  var EMPTY, isNum, list, type,
+  var EMPTY, list, type,
     __slice = Array.prototype.slice;
 
   type = require('./type-fn.coffee');
 
-  isNum = type.isNum;
-
   list = function() {
-    var head, rest;
-    head = arguments[0], rest = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
-    if (arguments.length === 0) {
+    var args;
+    args = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+    if (!args.length) {
       return EMPTY;
     } else {
-      return list.cons(head, list.apply(null, rest));
+      return list.cons(args[0], list.apply(null, args.slice(1)));
     }
   };
 
@@ -244,7 +242,7 @@
   };
 
   list.take = function(xs, n) {
-    if (xs === EMPTY || !isNum(n) || n === 0) {
+    if (xs === EMPTY || !type.isNum(n) || n === 0) {
       return EMPTY;
     } else {
       return list.cons(xs.head(), list.take(xs.tail(), n - 1));
@@ -254,7 +252,7 @@
   list.drop = function(xs, n) {
     if (xs === EMPTY || n === 0) {
       return xs;
-    } else if (!isNum(n)) {
+    } else if (!type.isNum(n)) {
       return EMPTY;
     } else {
       return list.drop(xs.tail(), n - 1);
@@ -300,17 +298,17 @@
   };
 
   list.insertAt = function(xs, i, x) {
-    if (xs === EMPTY || i === 0) {
-      return list.cons(x, xs);
-    } else if (!isNum(i) || !x) {
+    if (!type.isNum(i) || !x) {
       return xs;
+    } else if (xs === EMPTY || i === 0) {
+      return list.cons(x, xs);
     } else {
       return list.cons(xs.head(), list.insertAt(xs.tail(), i - 1, x));
     }
   };
 
   list.removeAt = function(xs, i) {
-    if (xs === EMPTY || !isNum(i)) {
+    if (xs === EMPTY || !type.isNum(i)) {
       return xs;
     } else if (i === 0) {
       return xs.tail();
@@ -320,7 +318,7 @@
   };
 
   list.replaceAt = function(xs, i, x) {
-    if (xs === EMPTY || !isNum(i) || !x) {
+    if (!type.isNum(i) || !x || xs === EMPTY) {
       return xs;
     } else if (i === 0) {
       return list.cons(x, xs.tail());
@@ -723,20 +721,28 @@
     return null;
   };
 
+  type.isDefined = function(x) {
+    return x !== void 0 && x !== null;
+  };
+
   type.isNum = function(x) {
-    return (x || (x === 0)) && (typeof x === 'number');
+    return type.isDefined(x) && (typeof x === 'number');
   };
 
   type.isList = function(x) {
-    return x && (typeof x.head === 'function' && typeof x.tail === 'function');
+    return type.isDefined(x) && type.isFunction(x.head) && type.isFunction(x.tail);
   };
 
   type.isObject = function(x) {
-    return x && (x.constructor === Object);
+    return type.isDefined(x) && x.constructor === Object;
   };
 
-  type.isObject = function(x) {
-    return x && (x.constructor === Array);
+  type.isArray = function(x) {
+    return type.isDefined(x) && x.constructor === Array;
+  };
+
+  type.isFunction = function(x) {
+    return type.isDefined(x) && x.constructor === Function;
   };
 
   module.exports = type;

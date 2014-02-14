@@ -6,18 +6,26 @@ type = -> null
 
 # @param {*} x
 # @return {Boolean}
-type.isNum = (x) -> (x or (x is 0)) and (typeof x is 'number')
+type.isDefined = (x) -> x isnt undefined and x isnt null
 
 # @param {*} x
 # @return {Boolean}
-type.isList = (x) -> (x and (typeof x.head is 'function' and typeof x.tail is 'function'))
+type.isNum = (x) -> type.isDefined(x) and (typeof x is 'number')
 
 # @param {*} x
 # @return {Boolean}
-type.isObject = (x) -> (x and (x.constructor is Object))
+type.isList = (x) -> type.isDefined(x) and type.isFunction(x.head) and type.isFunction(x.tail)
 
 # @param {*} x
 # @return {Boolean}
-type.isObject = (x) -> (x and (x.constructor is Array))
+type.isObject = (x) -> type.isDefined(x) and x.constructor is Object
+
+# @param {*} x
+# @return {Boolean}
+type.isArray = (x) -> type.isDefined(x) and x.constructor is Array
+
+# @param {*} x
+# @return {Boolean}
+type.isFunction = (x) -> type.isDefined(x) and x.constructor is Function
 
 module.exports = type
