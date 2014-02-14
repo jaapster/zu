@@ -150,7 +150,7 @@ list.some = (xs, p) ->
 # @param {Array} a
 # @return {Array}
 list.array =
-		(xs, a = []) -> if xs is EMPTY then a else [xs.head()].concat(list.array(xs.tail()))
+	(xs, a = []) -> if xs is EMPTY then a else [xs.head()].concat(list.array(xs.tail()))
 
 # @param {List} xs
 # @return {String}
@@ -160,7 +160,8 @@ list.string = (xs) ->
 # @param {List} xs
 # @return {List}
 list.clone = (xs) ->
-	list.cons(xs.head(), xs.tail())
+	if xs is EMPTY then xs
+	else list.cons(xs.head(), xs.tail())
 
 EMPTY = list.cons({}, {})
 

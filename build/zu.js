@@ -394,7 +394,11 @@
   };
 
   list.clone = function(xs) {
-    return list.cons(xs.head(), xs.tail());
+    if (xs === EMPTY) {
+      return xs;
+    } else {
+      return list.cons(xs.head(), xs.tail());
+    }
   };
 
   EMPTY = list.cons({}, {});
